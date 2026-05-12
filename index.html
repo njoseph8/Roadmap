@@ -1,0 +1,582 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Ethical Hacker Roadmap — Zero to Hired in 6 Months</title>
+  <meta name="description" content="A 6-month beginner to entry-level ethical hacker / penetration tester roadmap with certs, resources, and milestones." />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@300;400;600;700&family=Syne:wght@700;800&display=swap" rel="stylesheet" />
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --bg: #080c14;
+      --surface: rgba(0,0,0,0.4);
+      --border: #1a2535;
+      --text: #e2e8f0;
+      --muted: #64748b;
+      --dimmer: #4a5568;
+    }
+
+    html { scroll-behavior: smooth; }
+
+    body {
+      font-family: 'JetBrains Mono', monospace;
+      background: var(--bg);
+      color: var(--text);
+      min-height: 100vh;
+      overflow-x: hidden;
+    }
+
+    /* Grid background */
+    body::before {
+      content: '';
+      position: fixed; inset: 0;
+      background-image:
+        linear-gradient(rgba(0,255,159,0.03) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(0,255,159,0.03) 1px, transparent 1px);
+      background-size: 40px 40px;
+      pointer-events: none; z-index: 0;
+    }
+
+    /* Scanlines */
+    body::after {
+      content: '';
+      position: fixed; inset: 0;
+      background: repeating-linear-gradient(0deg, transparent, transparent 2px, rgba(0,0,0,0.03) 2px, rgba(0,0,0,0.03) 4px);
+      pointer-events: none; z-index: 0;
+    }
+
+    #app { position: relative; z-index: 1; display: flex; flex-direction: column; min-height: 100vh; }
+
+    /* ── HEADER ── */
+    header {
+      padding: 32px 32px 0;
+      border-bottom: 1px solid #0d1a26;
+      background: rgba(8,12,20,0.92);
+      backdrop-filter: blur(12px);
+      position: sticky; top: 0; z-index: 100;
+    }
+
+    .header-inner { max-width: 1100px; margin: 0 auto; }
+
+    .eyebrow {
+      font-size: 10px; letter-spacing: 0.3em; color: #00ff9f;
+      margin-bottom: 10px; display: flex; align-items: center; gap: 8px;
+    }
+
+    .pulse { animation: pulse 2s ease-in-out infinite; }
+    @keyframes pulse { 0%,100%{opacity:1} 50%{opacity:0.4} }
+
+    h1 {
+      font-family: 'Syne', sans-serif;
+      font-size: clamp(26px, 5vw, 48px);
+      font-weight: 800;
+      line-height: 1;
+      color: #f8fafc;
+      margin-bottom: 6px;
+    }
+
+    h1 span { color: #00ff9f; text-shadow: 0 0 30px rgba(0,255,159,0.35); }
+
+    .subtitle { font-size: 11px; color: var(--muted); letter-spacing: 0.06em; margin-bottom: 20px; }
+
+    /* Month tabs */
+    .tabs { display: flex; gap: 4px; overflow-x: auto; padding-bottom: 0; scrollbar-width: none; }
+    .tabs::-webkit-scrollbar { display: none; }
+
+    .tab {
+      background: transparent;
+      border: 1px solid var(--border);
+      border-bottom: none;
+      border-radius: 4px 4px 0 0;
+      padding: 11px 16px;
+      min-width: 96px;
+      text-align: left;
+      cursor: pointer;
+      transition: all 0.2s;
+      position: relative;
+      overflow: hidden;
+      font-family: 'JetBrains Mono', monospace;
+    }
+
+    .tab:hover { background: rgba(255,255,255,0.03); }
+
+    .tab.active { background: rgba(0,0,0,0.5); }
+
+    .tab.active::before {
+      content: '';
+      position: absolute; left: 0; top: 0;
+      width: 3px; height: 100%;
+      background: var(--mc);
+      box-shadow: 0 0 10px var(--mc);
+    }
+
+    .tab-label { font-size: 9px; letter-spacing: 0.15em; margin-bottom: 3px; }
+    .tab-title { font-size: 12px; font-weight: 600; }
+
+    /* ── MAIN ── */
+    main { flex: 1; padding: 24px 32px 40px; overflow-y: auto; }
+    .main-inner { max-width: 1100px; margin: 0 auto; }
+
+    /* Month hero bar */
+    .month-hero {
+      border-top-width: 3px;
+      border-top-style: solid;
+      border-radius: 0 0 8px 8px;
+      padding: 20px 24px;
+      margin-bottom: 22px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      flex-wrap: wrap;
+      gap: 14px;
+      background: rgba(0,0,0,0.4);
+    }
+
+    .hero-icon { font-size: 28px; margin-right: 12px; }
+
+    .hero-eyebrow { font-size: 9px; letter-spacing: 0.2em; text-transform: uppercase; margin-bottom: 3px; }
+
+    .hero-title {
+      font-family: 'Syne', sans-serif;
+      font-size: clamp(18px, 3vw, 22px);
+      font-weight: 800;
+      color: #f8fafc;
+    }
+
+    .progress-wrap { text-align: right; }
+    .progress-bar { height: 2px; background: #1a2535; border-radius: 1px; width: 160px; margin-bottom: 5px; overflow: hidden; }
+    .progress-fill { height: 100%; border-radius: 1px; transition: width 0.4s ease; }
+    .progress-label { font-size: 10px; color: var(--dimmer); }
+
+    /* Grid */
+    .content-grid { display: grid; grid-template-columns: 1fr 340px; gap: 20px; }
+
+    @media (max-width: 780px) {
+      .content-grid { grid-template-columns: 1fr; }
+      header { padding: 20px 16px 0; }
+      main { padding: 16px 16px 32px; }
+      .progress-wrap { display: none; }
+    }
+
+    /* Section header */
+    .section-hdr {
+      font-size: 9px; letter-spacing: 0.2em; text-transform: uppercase;
+      color: var(--dimmer); margin-bottom: 10px;
+      display: flex; align-items: center; gap: 8px;
+    }
+    .section-hdr::after { content: ''; flex: 1; height: 1px; background: var(--border); }
+
+    /* Tasks */
+    .task {
+      background: rgba(255,255,255,0.02);
+      border: 1px solid var(--border);
+      border-radius: 4px;
+      padding: 12px 16px;
+      cursor: pointer;
+      transition: all 0.2s;
+      margin-bottom: 8px;
+      user-select: none;
+    }
+    .task:hover { background: rgba(255,255,255,0.04); }
+    .task.open { background: rgba(0,0,0,0.3); }
+
+    .task-row { display: flex; align-items: center; gap: 10px; }
+
+    .task-num {
+      width: 20px; height: 20px; border-radius: 50%;
+      border: 1.5px solid var(--border);
+      display: flex; align-items: center; justify-content: center;
+      font-size: 9px; flex-shrink: 0;
+      transition: all 0.2s;
+    }
+
+    .task.open .task-num {
+      border-color: var(--mc);
+      background: color-mix(in srgb, var(--mc) 15%, transparent);
+      color: var(--mc);
+    }
+
+    .task-label { font-size: 13px; font-weight: 600; color: #cbd5e1; flex: 1; line-height: 1.4; }
+    .task.open .task-label { color: #f8fafc; }
+
+    .task-arrow { font-size: 10px; color: var(--dimmer); transition: transform 0.2s; }
+    .task.open .task-arrow { transform: rotate(90deg); }
+
+    .task-detail {
+      display: none;
+      margin-top: 10px; padding-top: 10px;
+      border-top: 1px solid color-mix(in srgb, var(--mc) 25%, transparent);
+      font-size: 12px; color: #94a3b8; line-height: 1.7;
+      padding-left: 30px;
+    }
+    .task.open .task-detail { display: block; }
+
+    /* Milestone */
+    .milestone {
+      margin-top: 18px;
+      border-radius: 6px;
+      padding: 14px 18px;
+      border: 1px solid color-mix(in srgb, var(--mc) 35%, transparent);
+      background: color-mix(in srgb, var(--mc) 7%, transparent);
+    }
+    .milestone-label { font-size: 9px; letter-spacing: 0.2em; margin-bottom: 6px; }
+    .milestone-text { font-size: 13px; color: #f8fafc; line-height: 1.6; }
+
+    /* Sidebar cards */
+    .card {
+      background: rgba(0,0,0,0.3);
+      border: 1px solid var(--border);
+      border-radius: 6px;
+      padding: 16px;
+      margin-bottom: 14px;
+    }
+
+    .cert-item { display: flex; align-items: flex-start; gap: 8px; margin-bottom: 8px; font-size: 12px; color: #94a3b8; line-height: 1.5; }
+    .cert-dot { flex-shrink: 0; margin-top: 1px; }
+
+    .chip {
+      display: inline-block;
+      background: rgba(255,255,255,0.04);
+      border: 1px solid var(--border);
+      border-radius: 2px;
+      padding: 4px 10px;
+      font-size: 11px;
+      margin: 3px 3px 3px 0;
+      color: #94a3b8;
+      transition: all 0.2s;
+      font-family: 'JetBrains Mono', monospace;
+    }
+    .chip:hover { border-color: var(--mc); color: var(--mc); }
+
+    /* Cert path */
+    .cert-path-item { display: flex; align-items: center; gap: 10px; margin-bottom: 10px; transition: opacity 0.3s; }
+    .cert-path-item.locked { opacity: 0.3; }
+    .cert-dot-circle { width: 8px; height: 8px; border-radius: 50%; flex-shrink: 0; transition: all 0.3s; }
+    .cert-path-name { font-size: 12px; font-weight: 600; color: #e2e8f0; }
+    .cert-path-sub { font-size: 10px; color: var(--dimmer); }
+    .cert-unlocked { font-size: 9px; letter-spacing: 0.1em; margin-left: auto; }
+
+    /* Stats grid */
+    .stats-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; }
+    .stat-label { font-size: 9px; color: var(--dimmer); letter-spacing: 0.15em; margin-bottom: 4px; }
+    .stat-value { font-size: 13px; font-weight: 600; }
+
+    /* Footer nav */
+    footer {
+      border-top: 1px solid #0d1a26;
+      padding: 14px 32px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      background: rgba(8,12,20,0.95);
+      backdrop-filter: blur(10px);
+      position: sticky; bottom: 0; z-index: 100;
+    }
+
+    .nav-btn {
+      background: transparent;
+      border: 1px solid var(--border);
+      color: #94a3b8;
+      padding: 8px 20px;
+      cursor: pointer;
+      font-size: 12px;
+      border-radius: 4px;
+      font-family: 'JetBrains Mono', monospace;
+      transition: all 0.2s;
+    }
+    .nav-btn:disabled { color: #2d3748; cursor: default; border-color: #0d1a26; }
+    .nav-btn.next { border-color: var(--mc); color: var(--mc); background: color-mix(in srgb, var(--mc) 10%, transparent); }
+    .nav-btn.next:disabled { border-color: #0d1a26; color: #2d3748; background: transparent; }
+
+    .dots { display: flex; gap: 8px; align-items: center; }
+    .dot {
+      height: 4px; border-radius: 2px; cursor: pointer;
+      transition: all 0.3s ease;
+      background: var(--border);
+    }
+    .dot.active { background: var(--mc); box-shadow: 0 0 8px var(--mc); }
+  </style>
+</head>
+<body>
+<div id="app">
+  <header>
+    <div class="header-inner">
+      <div class="eyebrow"><span class="pulse">▶</span> ETHICAL HACKER ROADMAP // 6-MONTH PROGRAM</div>
+      <h1>FROM ZERO<br><span>TO HIRED</span></h1>
+      <p class="subtitle">Beginner → Entry-Level Penetration Tester</p>
+      <div class="tabs" id="tabs"></div>
+    </div>
+  </header>
+
+  <main>
+    <div class="main-inner">
+      <div class="month-hero" id="hero"></div>
+      <div class="content-grid">
+        <div id="tasks-col"></div>
+        <div id="sidebar-col"></div>
+      </div>
+    </div>
+  </main>
+
+  <footer>
+    <button class="nav-btn" id="btn-prev" onclick="navigate(-1)">← Prev Month</button>
+    <div class="dots" id="dots"></div>
+    <button class="nav-btn next" id="btn-next" onclick="navigate(1)">Next Month →</button>
+  </footer>
+</div>
+
+<script>
+const MONTHS = [
+  {
+    number: 1, title: "Foundations", subtitle: "Build Your Base",
+    color: "#00ff9f", icon: "⬡", focus: "Networking & OS Fundamentals",
+    tasks: [
+      { label: "Learn the OSI & TCP/IP models", detail: "Understand how data travels across networks — this is foundational for everything." },
+      { label: "Study IP addressing, subnetting, DNS, HTTP/S", detail: "Know how devices find each other and how the web communicates." },
+      { label: "Get comfortable with Linux (Kali or Ubuntu)", detail: "Ethical hackers live in the terminal. Learn basic commands, file permissions, and navigation." },
+      { label: "Understand Windows basics & Active Directory concepts", detail: "Most corporate environments run Windows — you need to know how to navigate them." },
+      { label: "Set up a home lab (VirtualBox + Kali Linux)", detail: "Practice legally in your own environment. Start with 2 VMs minimum." },
+    ],
+    certs: ["CompTIA IT Fundamentals (ITF+) — optional starter"],
+    resources: ["Professor Messer (free YouTube)", "TryHackMe — Pre-Security path", "NetworkChuck YouTube"],
+    milestone: "You can explain how a packet travels from your browser to Google and back.",
+    hours: "10–15", difficulty: "★☆☆☆☆", cost: "$0",
+  },
+  {
+    number: 2, title: "Security Concepts", subtitle: "Think Like a Defender",
+    color: "#00cfff", icon: "◈", focus: "Core Security Principles",
+    tasks: [
+      { label: "Study CIA Triad, AAA, and threat models", detail: "The core pillars of all security thinking — Confidentiality, Integrity, Availability." },
+      { label: "Learn common attack types: phishing, MITM, DoS, SQLi, XSS", detail: "You can't defend (or attack ethically) what you don't understand." },
+      { label: "Understand firewalls, IDS/IPS, VPNs, and proxies", detail: "Learn what each tool does and where it sits in a network." },
+      { label: "Study cryptography basics: hashing, symmetric/asymmetric encryption", detail: "Passwords, HTTPS, certificates — all rely on this." },
+      { label: "Start CompTIA Security+ study materials", detail: "This is the #1 entry-level cert employers look for. Begin now." },
+    ],
+    certs: ["Begin CompTIA Security+ prep"],
+    resources: ["Professor Messer Security+ (free)", "TryHackMe — SOC Level 1", "Cybrary (free tier)"],
+    milestone: "You can identify and explain 10+ common attack vectors to a non-technical person.",
+    hours: "10–15", difficulty: "★★☆☆☆", cost: "$0",
+  },
+  {
+    number: 3, title: "Ethical Hacking Intro", subtitle: "First Steps in Offense",
+    color: "#ffcc00", icon: "◉", focus: "Reconnaissance & Scanning",
+    tasks: [
+      { label: "Learn the 5 phases of ethical hacking", detail: "Recon → Scanning → Gaining Access → Maintaining Access → Covering Tracks." },
+      { label: "Master Nmap for port scanning and enumeration", detail: "Nmap is the #1 recon tool. Know all major flags and scan types cold." },
+      { label: "Practice with Metasploit Framework basics", detail: "Learn to use existing exploits responsibly in your lab environment." },
+      { label: "Learn OSINT techniques (Shodan, theHarvester, Maltego)", detail: "Gather intelligence on targets using only publicly available data." },
+      { label: "Complete TryHackMe's Jr Penetration Tester path", detail: "Guided hands-on rooms that walk you through real techniques safely." },
+    ],
+    certs: ["eJPT (eLearnSecurity Junior Penetration Tester) — beginner-friendly, ~$200"],
+    resources: ["TryHackMe Jr Penetration Tester", "HackTheBox Starting Point", "IppSec YouTube (HTB walkthroughs)"],
+    milestone: "You complete your first TryHackMe CTF room from scratch without hints.",
+    hours: "15–20", difficulty: "★★★☆☆", cost: "~$200",
+  },
+  {
+    number: 4, title: "Core Attack Skills", subtitle: "Web & Network Exploitation",
+    color: "#ff9500", icon: "◆", focus: "Active Exploitation Techniques",
+    tasks: [
+      { label: "Learn web app vulnerabilities (OWASP Top 10)", detail: "SQLi, XSS, CSRF, IDOR, broken auth — every pentester must know these inside-out." },
+      { label: "Practice with Burp Suite Community Edition", detail: "The industry-standard tool for intercepting and manipulating web traffic." },
+      { label: "Study privilege escalation (Linux & Windows)", detail: "Getting in is step 1. Escalating from user to root/admin is the real skill." },
+      { label: "Learn password attacks: Hashcat, John the Ripper, wordlists", detail: "Understand how passwords are cracked and why strong hashing matters." },
+      { label: "Solve 10+ HackTheBox easy machines", detail: "HTB is the closest thing to real-world pentesting you'll find for free." },
+    ],
+    certs: ["CompTIA Security+ — sit the exam this month (~$392)"],
+    resources: ["PortSwigger Web Security Academy (FREE)", "GTFOBins & HackTricks for privesc", "HackTheBox Academy"],
+    milestone: "You earn CompTIA Security+ certification. 🎉",
+    hours: "15–20", difficulty: "★★★★☆", cost: "~$400",
+  },
+  {
+    number: 5, title: "Specialization", subtitle: "Pick Your Lane",
+    color: "#ff5e5e", icon: "◇", focus: "Advanced Techniques & Tooling",
+    tasks: [
+      { label: "Choose a focus: Web App, Network Pentesting, or Red Team", detail: "Specializing makes you more hireable. Most entry jobs are web or network focused." },
+      { label: "Learn scripting: Python or Bash for automation", detail: "Write your own tools, automate recon, customize exploits. 100 lines of Python will take you far." },
+      { label: "Study Active Directory attacks (Kerberoasting, Pass-the-Hash, BloodHound)", detail: "AD attacks are in nearly every real corporate pentest. This sets you apart." },
+      { label: "Practice writing pentest reports", detail: "Technical findings mean nothing if you can't communicate them. Reports are half the job." },
+      { label: "Participate in a CTF competition (PicoCTF, CTFtime events)", detail: "Competitions sharpen skills fast and look excellent on a resume." },
+    ],
+    certs: ["eJPT if not already done (~$200)", "Begin CEH or PNPT study"],
+    resources: ["PNPT by TCM Security", "AD lab setup — TCM Security (free YouTube)", "CTFtime.org"],
+    milestone: "You write a full mock pentest report for a vulnerable VM (e.g., VulnHub machine).",
+    hours: "20–25", difficulty: "★★★★☆", cost: "~$200",
+  },
+  {
+    number: 6, title: "Job Ready", subtitle: "Launch Your Career",
+    color: "#c084fc", icon: "★", focus: "Portfolio, Applications & Interviews",
+    tasks: [
+      { label: "Build a GitHub portfolio with writeups and scripts", detail: "Document your HTB/TryHackMe solutions, custom tools, and lab setups. Employers will check this." },
+      { label: "Create a professional LinkedIn with security focus", detail: "List your certs, labs, and projects. Connect with security professionals actively." },
+      { label: "Apply for Bug Bounty programs (HackerOne, Bugcrowd)", detail: "Even $0 bug reports prove real-world testing. A paid bounty is gold on a resume." },
+      { label: "Apply for entry-level roles: Jr Pentester, SOC Analyst L1, Security Analyst", detail: "Don't wait for 'perfect.' Apply broadly — SOC roles are a great launchpad to pentesting." },
+      { label: "Practice interview questions: explain attacks, tools, methodology", detail: "Be ready to explain your thought process out loud. Technical interviews often involve live walkthroughs." },
+    ],
+    certs: ["CompTIA Security+ ✓", "eJPT ✓", "CEH or PNPT — schedule exam (~$200–$400)"],
+    resources: ["TCM Security 'Getting into Infosec' (YouTube)", "Reddit r/netsec resume templates", "HackerOne & Bugcrowd"],
+    milestone: "You land your first interview — or your first bug bounty payout. Either counts. 🚀",
+    hours: "20–25", difficulty: "★★★★★", cost: "~$200",
+  },
+];
+
+const CERT_PATH = [
+  { name: "CompTIA Security+", month: 4, color: "#00cfff", tier: "Essential" },
+  { name: "eJPT", month: 5, color: "#ffcc00", tier: "Hands-On" },
+  { name: "CEH or PNPT", month: 6, color: "#c084fc", tier: "Advanced" },
+];
+
+let active = 0;
+let openTask = null;
+
+function setMonth(i) {
+  active = i;
+  openTask = null;
+  render();
+}
+
+function navigate(dir) {
+  const next = active + dir;
+  if (next >= 0 && next < MONTHS.length) setMonth(next);
+}
+
+function toggleTask(i) {
+  openTask = openTask === i ? null : i;
+  renderTasks();
+}
+
+function render() {
+  renderTabs();
+  renderHero();
+  renderTasks();
+  renderSidebar();
+  renderDots();
+  renderNavBtns();
+}
+
+function renderTabs() {
+  const m = MONTHS[active];
+  document.getElementById('tabs').innerHTML = MONTHS.map((mo, i) => `
+    <button class="tab ${i === active ? 'active' : ''}"
+      style="--mc:${mo.color}; ${i === active ? `border-color:${mo.color}` : ''}"
+      onclick="setMonth(${i})">
+      <div class="tab-label" style="color:${i === active ? mo.color : '#4a5568'}">MONTH ${mo.number}</div>
+      <div class="tab-title" style="color:${i === active ? '#f8fafc' : '#64748b'}">${mo.title}</div>
+    </button>
+  `).join('');
+}
+
+function renderHero() {
+  const m = MONTHS[active];
+  const pct = (m.number / 6 * 100).toFixed(0);
+  document.getElementById('hero').style.borderTopColor = m.color;
+  document.getElementById('hero').style.borderColor = m.color + '22';
+  document.getElementById('hero').style.setProperty('--mc', m.color);
+  document.getElementById('hero').innerHTML = `
+    <div style="display:flex;align-items:center">
+      <span class="hero-icon" style="color:${m.color}">${m.icon}</span>
+      <div>
+        <div class="hero-eyebrow" style="color:${m.color}">Month ${m.number} — ${m.focus}</div>
+        <div class="hero-title">${m.title}: <span style="color:${m.color}">${m.subtitle}</span></div>
+      </div>
+    </div>
+    <div class="progress-wrap">
+      <div class="progress-bar">
+        <div class="progress-fill" style="width:${pct}%;background:${m.color};box-shadow:0 0 8px ${m.color}"></div>
+      </div>
+      <div class="progress-label">${m.number}/6 months complete</div>
+    </div>
+  `;
+}
+
+function renderTasks() {
+  const m = MONTHS[active];
+  document.getElementById('tasks-col').innerHTML = `
+    <div class="section-hdr">Weekly Tasks & Skills</div>
+    ${m.tasks.map((t, i) => `
+      <div class="task ${openTask === i ? 'open' : ''}" style="--mc:${m.color}" onclick="toggleTask(${i})">
+        <div class="task-row">
+          <div class="task-num" style="${openTask === i ? `border-color:${m.color};color:${m.color}` : ''}">${i+1}</div>
+          <span class="task-label">${t.label}</span>
+          <span class="task-arrow">▶</span>
+        </div>
+        <div class="task-detail">${t.detail}</div>
+      </div>
+    `).join('')}
+    <div class="milestone" style="--mc:${m.color};border-color:${m.color}55;background:${m.color}0f">
+      <div class="milestone-label" style="color:${m.color}">▲ MONTH ${m.number} MILESTONE</div>
+      <div class="milestone-text">${m.milestone}</div>
+    </div>
+  `;
+}
+
+function renderSidebar() {
+  const m = MONTHS[active];
+  document.getElementById('sidebar-col').innerHTML = `
+    <div class="card">
+      <div class="section-hdr">Certifications</div>
+      ${m.certs.map(c => `
+        <div class="cert-item">
+          <span class="cert-dot" style="color:${m.color}">◈</span>
+          ${c}
+        </div>
+      `).join('')}
+    </div>
+
+    <div class="card">
+      <div class="section-hdr">Resources</div>
+      <div>${m.resources.map(r => `<span class="chip" style="--mc:${m.color}">${r}</span>`).join('')}</div>
+    </div>
+
+    <div class="card">
+      <div class="section-hdr">Cert Roadmap</div>
+      ${CERT_PATH.map(c => `
+        <div class="cert-path-item ${active + 1 >= c.month ? '' : 'locked'}">
+          <div class="cert-dot-circle" style="background:${active+1 >= c.month ? c.color : '#1a2535'};${active+1 >= c.month ? `box-shadow:0 0 8px ${c.color}` : ''}"></div>
+          <div>
+            <div class="cert-path-name">${c.name}</div>
+            <div class="cert-path-sub">Month ${c.month} · ${c.tier}</div>
+          </div>
+          ${active+1 >= c.month ? `<span class="cert-unlocked" style="color:${c.color}">UNLOCKED</span>` : ''}
+        </div>
+      `).join('')}
+    </div>
+
+    <div class="card">
+      <div class="stats-grid">
+        <div><div class="stat-label">HOURS/WEEK</div><div class="stat-value" style="color:${m.color}">${m.hours}</div></div>
+        <div><div class="stat-label">DIFFICULTY</div><div class="stat-value" style="color:${m.color}">${m.difficulty}</div></div>
+        <div><div class="stat-label">EST. COST</div><div class="stat-value" style="color:${m.color}">${m.cost}</div></div>
+        <div><div class="stat-label">TASKS</div><div class="stat-value" style="color:${m.color}">${m.tasks.length} items</div></div>
+      </div>
+    </div>
+  `;
+}
+
+function renderDots() {
+  document.getElementById('dots').innerHTML = MONTHS.map((m, i) => `
+    <div class="dot ${i === active ? 'active' : ''}" onclick="setMonth(${i})"
+      style="width:${i === active ? 24 : 8}px;${i === active ? `background:${m.color};box-shadow:0 0 8px ${m.color}` : ''}"></div>
+  `).join('');
+}
+
+function renderNavBtns() {
+  const m = MONTHS[active];
+  const prev = document.getElementById('btn-prev');
+  const next = document.getElementById('btn-next');
+  prev.disabled = active === 0;
+  next.disabled = active === MONTHS.length - 1;
+  next.style.setProperty('--mc', m.color);
+  next.style.borderColor = active === MONTHS.length - 1 ? '' : m.color;
+  next.style.color = active === MONTHS.length - 1 ? '' : m.color;
+  next.style.background = active === MONTHS.length - 1 ? '' : m.color + '1a';
+}
+
+// Init
+render();
+</script>
+</body>
+</html>
