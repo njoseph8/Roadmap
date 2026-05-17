@@ -1,582 +1,792 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Ethical Hacker Roadmap — Zero to Hired in 6 Months</title>
-  <meta name="description" content="A 6-month beginner to entry-level ethical hacker / penetration tester roadmap with certs, resources, and milestones." />
-  <link rel="preconnect" href="https://fonts.googleapis.com" />
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-  <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@300;400;600;700&family=Syne:wght@700;800&display=swap" rel="stylesheet" />
-  <style>
-    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>Python Job-Ready Roadmap — 3 Months</title>
+<link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@300;400;500;700&family=Syne:wght@400;600;700;800&display=swap" rel="stylesheet"/>
+<style>
+  :root {
+    --bg: #060608;
+    --surface: #0e0e14;
+    --surface2: #13131b;
+    --border: #1f1f2e;
+    --m1: #00e896;
+    --m2: #8b5cf6;
+    --m3: #f97316;
+    --text: #e2e2f0;
+    --muted: #555566;
+    --dim: #333344;
+  }
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+  html { scroll-behavior: smooth; }
+  body {
+    background: var(--bg);
+    color: var(--text);
+    font-family: 'JetBrains Mono', monospace;
+    min-height: 100vh;
+    overflow-x: hidden;
+  }
 
-    :root {
-      --bg: #080c14;
-      --surface: rgba(0,0,0,0.4);
-      --border: #1a2535;
-      --text: #e2e8f0;
-      --muted: #64748b;
-      --dimmer: #4a5568;
-    }
+  /* NOISE OVERLAY */
+  body::before {
+    content: '';
+    position: fixed; inset: 0;
+    background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)' opacity='0.03'/%3E%3C/svg%3E");
+    pointer-events: none; z-index: 0; opacity: 0.4;
+  }
 
-    html { scroll-behavior: smooth; }
+  /* HERO */
+  .hero {
+    position: relative;
+    padding: 100px 24px 80px;
+    text-align: center;
+    overflow: hidden;
+  }
+  .hero-grid {
+    position: absolute; inset: 0;
+    background-image:
+      linear-gradient(var(--border) 1px, transparent 1px),
+      linear-gradient(90deg, var(--border) 1px, transparent 1px);
+    background-size: 48px 48px;
+    mask-image: radial-gradient(ellipse 80% 60% at 50% 50%, black 40%, transparent 100%);
+    opacity: 0.5;
+  }
+  .hero-glow {
+    position: absolute;
+    width: 600px; height: 300px;
+    border-radius: 50%;
+    background: radial-gradient(ellipse, #00e89615 0%, transparent 70%);
+    top: 50%; left: 50%;
+    transform: translate(-50%, -60%);
+    pointer-events: none;
+  }
+  .badge {
+    display: inline-flex; align-items: center; gap: 6px;
+    background: #00e89610;
+    border: 1px solid #00e89630;
+    border-radius: 2px;
+    padding: 5px 14px;
+    font-size: 10px;
+    letter-spacing: 3px;
+    color: var(--m1);
+    text-transform: uppercase;
+    margin-bottom: 24px;
+    position: relative;
+  }
+  .badge::before {
+    content: '';
+    width: 6px; height: 6px;
+    background: var(--m1);
+    border-radius: 50%;
+    animation: blink 1.5s ease infinite;
+  }
+  @keyframes blink { 0%,100%{opacity:1} 50%{opacity:0.2} }
+  .hero h1 {
+    font-family: 'Syne', sans-serif;
+    font-size: clamp(36px, 7vw, 72px);
+    font-weight: 800;
+    letter-spacing: -2px;
+    line-height: 1.05;
+    position: relative;
+    margin-bottom: 20px;
+  }
+  .hero h1 span { color: var(--m1); }
+  .hero p {
+    font-size: 14px;
+    color: var(--muted);
+    max-width: 500px;
+    margin: 0 auto 40px;
+    line-height: 1.7;
+    position: relative;
+  }
 
-    body {
-      font-family: 'JetBrains Mono', monospace;
-      background: var(--bg);
-      color: var(--text);
-      min-height: 100vh;
-      overflow-x: hidden;
-    }
+  /* STAT ROW */
+  .stats {
+    display: flex; justify-content: center; gap: 0;
+    border: 1px solid var(--border);
+    border-radius: 6px;
+    overflow: hidden;
+    max-width: 520px;
+    margin: 0 auto 0;
+    position: relative;
+  }
+  .stat {
+    flex: 1;
+    padding: 16px 20px;
+    border-right: 1px solid var(--border);
+    text-align: center;
+  }
+  .stat:last-child { border-right: none; }
+  .stat-num {
+    font-family: 'Syne', sans-serif;
+    font-size: 24px;
+    font-weight: 800;
+    color: var(--m1);
+  }
+  .stat-label { font-size: 10px; color: var(--muted); letter-spacing: 1px; margin-top: 2px; }
 
-    /* Grid background */
-    body::before {
-      content: '';
-      position: fixed; inset: 0;
-      background-image:
-        linear-gradient(rgba(0,255,159,0.03) 1px, transparent 1px),
-        linear-gradient(90deg, rgba(0,255,159,0.03) 1px, transparent 1px);
-      background-size: 40px 40px;
-      pointer-events: none; z-index: 0;
-    }
+  /* NAV */
+  .nav {
+    position: sticky; top: 0; z-index: 100;
+    background: #060608ee;
+    backdrop-filter: blur(12px);
+    border-bottom: 1px solid var(--border);
+    display: flex;
+    overflow-x: auto;
+    scrollbar-width: none;
+  }
+  .nav::-webkit-scrollbar { display: none; }
+  .nav-tab {
+    flex: 1; min-width: 140px;
+    padding: 16px 20px;
+    border: none;
+    background: transparent;
+    cursor: pointer;
+    border-bottom: 2px solid transparent;
+    transition: all 0.2s;
+    text-align: center;
+    font-family: 'JetBrains Mono', monospace;
+  }
+  .nav-tab:hover { background: var(--surface); }
+  .nav-tab.active-m1 { border-bottom-color: var(--m1); background: var(--surface); }
+  .nav-tab.active-m2 { border-bottom-color: var(--m2); background: var(--surface); }
+  .nav-tab.active-m3 { border-bottom-color: var(--m3); background: var(--surface); }
+  .nav-month { font-size: 11px; letter-spacing: 1px; font-weight: 500; }
+  .nav-month.c1 { color: var(--m1); }
+  .nav-month.c2 { color: var(--m2); }
+  .nav-month.c3 { color: var(--m3); }
+  .nav-sub { font-size: 10px; color: var(--muted); margin-top: 2px; }
 
-    /* Scanlines */
-    body::after {
-      content: '';
-      position: fixed; inset: 0;
-      background: repeating-linear-gradient(0deg, transparent, transparent 2px, rgba(0,0,0,0.03) 2px, rgba(0,0,0,0.03) 4px);
-      pointer-events: none; z-index: 0;
-    }
+  /* SECTION */
+  .section { display: none; padding: 40px 0 80px; max-width: 860px; margin: 0 auto; }
+  .section.active { display: block; animation: fadeUp 0.3s ease; }
+  @keyframes fadeUp { from{opacity:0;transform:translateY(12px)} to{opacity:1;transform:translateY(0)} }
 
-    #app { position: relative; z-index: 1; display: flex; flex-direction: column; min-height: 100vh; }
+  .section-header {
+    display: flex; align-items: center; gap: 20px;
+    padding: 0 24px;
+    margin-bottom: 32px;
+  }
+  .section-num {
+    width: 60px; height: 60px; border-radius: 50%;
+    display: flex; align-items: center; justify-content: center;
+    font-family: 'Syne', sans-serif;
+    font-size: 24px; font-weight: 800;
+    flex-shrink: 0;
+  }
+  .section-num.n1 { background: #00e89615; border: 2px solid var(--m1); color: var(--m1); }
+  .section-num.n2 { background: #8b5cf615; border: 2px solid var(--m2); color: var(--m2); }
+  .section-num.n3 { background: #f9731615; border: 2px solid var(--m3); color: var(--m3); }
+  .section-title { font-family: 'Syne', sans-serif; font-size: 28px; font-weight: 700; }
+  .section-desc { font-size: 12px; color: var(--muted); margin-top: 4px; }
 
-    /* ── HEADER ── */
-    header {
-      padding: 32px 32px 0;
-      border-bottom: 1px solid #0d1a26;
-      background: rgba(8,12,20,0.92);
-      backdrop-filter: blur(12px);
-      position: sticky; top: 0; z-index: 100;
-    }
+  /* WEEK BLOCKS */
+  .weeks { padding: 0 24px; display: flex; flex-direction: column; gap: 12px; }
+  .week {
+    border: 1px solid var(--border);
+    border-radius: 8px;
+    overflow: hidden;
+    transition: border-color 0.2s;
+  }
+  .week:hover { border-color: var(--dim); }
+  .week.open.c1 { border-color: #00e89640; }
+  .week.open.c2 { border-color: #8b5cf640; }
+  .week.open.c3 { border-color: #f9731640; }
 
-    .header-inner { max-width: 1100px; margin: 0 auto; }
+  .week-head {
+    display: flex; align-items: center;
+    justify-content: space-between;
+    padding: 18px 20px;
+    cursor: pointer;
+    background: var(--surface);
+    gap: 12px;
+    user-select: none;
+  }
+  .week-head:hover { background: var(--surface2); }
+  .week-head-left { display: flex; align-items: center; gap: 14px; }
+  .week-tag {
+    padding: 3px 10px;
+    border-radius: 3px;
+    font-size: 10px; letter-spacing: 1px;
+    border: 1px solid;
+    white-space: nowrap;
+  }
+  .week-tag.t1 { color: var(--m1); border-color: #00e89630; background: #00e89610; }
+  .week-tag.t2 { color: var(--m2); border-color: #8b5cf630; background: #8b5cf610; }
+  .week-tag.t3 { color: var(--m3); border-color: #f9731630; background: #f9731610; }
+  .week-title { font-family: 'Syne', sans-serif; font-size: 16px; font-weight: 600; }
+  .week-arrow { font-size: 12px; transition: transform 0.2s; }
+  .week.open .week-arrow { transform: rotate(90deg); }
 
-    .eyebrow {
-      font-size: 10px; letter-spacing: 0.3em; color: #00ff9f;
-      margin-bottom: 10px; display: flex; align-items: center; gap: 8px;
-    }
+  .week-body {
+    display: none;
+    padding: 24px 20px;
+    border-top: 1px solid var(--border);
+    background: var(--bg);
+  }
+  .week.open .week-body { display: block; animation: fadeUp 0.25s ease; }
 
-    .pulse { animation: pulse 2s ease-in-out infinite; }
-    @keyframes pulse { 0%,100%{opacity:1} 50%{opacity:0.4} }
+  /* GRID LAYOUT */
+  .content-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 20px;
+    margin-bottom: 20px;
+  }
+  @media(max-width: 600px) { .content-grid { grid-template-columns: 1fr; } }
 
-    h1 {
-      font-family: 'Syne', sans-serif;
-      font-size: clamp(26px, 5vw, 48px);
-      font-weight: 800;
-      line-height: 1;
-      color: #f8fafc;
-      margin-bottom: 6px;
-    }
+  .content-block { }
+  .block-label {
+    font-size: 9px;
+    letter-spacing: 2.5px;
+    text-transform: uppercase;
+    color: var(--muted);
+    margin-bottom: 10px;
+    padding-bottom: 8px;
+    border-bottom: 1px solid var(--border);
+  }
+  .topic-item {
+    display: flex; gap: 8px; align-items: flex-start;
+    margin-bottom: 8px; font-size: 12px; line-height: 1.6;
+  }
+  .topic-arrow { flex-shrink: 0; margin-top: 2px; }
+  .topic-text { color: #b0b0c8; }
 
-    h1 span { color: #00ff9f; text-shadow: 0 0 30px rgba(0,255,159,0.35); }
+  .practice-item {
+    border-left: 2px solid;
+    padding: 8px 12px;
+    margin-bottom: 6px;
+    font-size: 12px;
+    color: #b0b0c8;
+    line-height: 1.5;
+    border-radius: 0 4px 4px 0;
+  }
+  .practice-item.p1 { border-color: var(--m1); background: #00e8961008; }
+  .practice-item.p2 { border-color: var(--m2); background: #8b5cf61008; }
+  .practice-item.p3 { border-color: var(--m3); background: #f973161008; }
 
-    .subtitle { font-size: 11px; color: var(--muted); letter-spacing: 0.06em; margin-bottom: 20px; }
+  /* RESOURCES FULL WIDTH */
+  .resources { margin-top: 4px; }
+  .resource-item {
+    display: flex; align-items: center; gap: 10px;
+    margin-bottom: 8px; text-decoration: none;
+    padding: 8px 12px;
+    border: 1px solid var(--border);
+    border-radius: 5px;
+    background: var(--surface);
+    transition: all 0.15s;
+  }
+  .resource-item:hover { border-color: var(--dim); transform: translateX(4px); }
+  .res-type {
+    font-size: 10px; padding: 2px 7px;
+    border: 1px solid var(--border);
+    border-radius: 3px; color: var(--muted);
+    background: var(--surface2);
+    white-space: nowrap;
+  }
+  .res-label { font-size: 12px; color: #9090c0; }
 
-    /* Month tabs */
-    .tabs { display: flex; gap: 4px; overflow-x: auto; padding-bottom: 0; scrollbar-width: none; }
-    .tabs::-webkit-scrollbar { display: none; }
+  /* FOOTER */
+  footer {
+    border-top: 1px solid var(--border);
+    padding: 32px 24px;
+    text-align: center;
+  }
+  .tip-box {
+    display: inline-flex; align-items: center; gap: 10px;
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 6px;
+    padding: 14px 24px;
+    font-size: 12px;
+    color: var(--muted);
+    max-width: 540px;
+  }
+  .tip-box strong { color: var(--m1); }
 
-    .tab {
-      background: transparent;
-      border: 1px solid var(--border);
-      border-bottom: none;
-      border-radius: 4px 4px 0 0;
-      padding: 11px 16px;
-      min-width: 96px;
-      text-align: left;
-      cursor: pointer;
-      transition: all 0.2s;
-      position: relative;
-      overflow: hidden;
-      font-family: 'JetBrains Mono', monospace;
-    }
-
-    .tab:hover { background: rgba(255,255,255,0.03); }
-
-    .tab.active { background: rgba(0,0,0,0.5); }
-
-    .tab.active::before {
-      content: '';
-      position: absolute; left: 0; top: 0;
-      width: 3px; height: 100%;
-      background: var(--mc);
-      box-shadow: 0 0 10px var(--mc);
-    }
-
-    .tab-label { font-size: 9px; letter-spacing: 0.15em; margin-bottom: 3px; }
-    .tab-title { font-size: 12px; font-weight: 600; }
-
-    /* ── MAIN ── */
-    main { flex: 1; padding: 24px 32px 40px; overflow-y: auto; }
-    .main-inner { max-width: 1100px; margin: 0 auto; }
-
-    /* Month hero bar */
-    .month-hero {
-      border-top-width: 3px;
-      border-top-style: solid;
-      border-radius: 0 0 8px 8px;
-      padding: 20px 24px;
-      margin-bottom: 22px;
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      flex-wrap: wrap;
-      gap: 14px;
-      background: rgba(0,0,0,0.4);
-    }
-
-    .hero-icon { font-size: 28px; margin-right: 12px; }
-
-    .hero-eyebrow { font-size: 9px; letter-spacing: 0.2em; text-transform: uppercase; margin-bottom: 3px; }
-
-    .hero-title {
-      font-family: 'Syne', sans-serif;
-      font-size: clamp(18px, 3vw, 22px);
-      font-weight: 800;
-      color: #f8fafc;
-    }
-
-    .progress-wrap { text-align: right; }
-    .progress-bar { height: 2px; background: #1a2535; border-radius: 1px; width: 160px; margin-bottom: 5px; overflow: hidden; }
-    .progress-fill { height: 100%; border-radius: 1px; transition: width 0.4s ease; }
-    .progress-label { font-size: 10px; color: var(--dimmer); }
-
-    /* Grid */
-    .content-grid { display: grid; grid-template-columns: 1fr 340px; gap: 20px; }
-
-    @media (max-width: 780px) {
-      .content-grid { grid-template-columns: 1fr; }
-      header { padding: 20px 16px 0; }
-      main { padding: 16px 16px 32px; }
-      .progress-wrap { display: none; }
-    }
-
-    /* Section header */
-    .section-hdr {
-      font-size: 9px; letter-spacing: 0.2em; text-transform: uppercase;
-      color: var(--dimmer); margin-bottom: 10px;
-      display: flex; align-items: center; gap: 8px;
-    }
-    .section-hdr::after { content: ''; flex: 1; height: 1px; background: var(--border); }
-
-    /* Tasks */
-    .task {
-      background: rgba(255,255,255,0.02);
-      border: 1px solid var(--border);
-      border-radius: 4px;
-      padding: 12px 16px;
-      cursor: pointer;
-      transition: all 0.2s;
-      margin-bottom: 8px;
-      user-select: none;
-    }
-    .task:hover { background: rgba(255,255,255,0.04); }
-    .task.open { background: rgba(0,0,0,0.3); }
-
-    .task-row { display: flex; align-items: center; gap: 10px; }
-
-    .task-num {
-      width: 20px; height: 20px; border-radius: 50%;
-      border: 1.5px solid var(--border);
-      display: flex; align-items: center; justify-content: center;
-      font-size: 9px; flex-shrink: 0;
-      transition: all 0.2s;
-    }
-
-    .task.open .task-num {
-      border-color: var(--mc);
-      background: color-mix(in srgb, var(--mc) 15%, transparent);
-      color: var(--mc);
-    }
-
-    .task-label { font-size: 13px; font-weight: 600; color: #cbd5e1; flex: 1; line-height: 1.4; }
-    .task.open .task-label { color: #f8fafc; }
-
-    .task-arrow { font-size: 10px; color: var(--dimmer); transition: transform 0.2s; }
-    .task.open .task-arrow { transform: rotate(90deg); }
-
-    .task-detail {
-      display: none;
-      margin-top: 10px; padding-top: 10px;
-      border-top: 1px solid color-mix(in srgb, var(--mc) 25%, transparent);
-      font-size: 12px; color: #94a3b8; line-height: 1.7;
-      padding-left: 30px;
-    }
-    .task.open .task-detail { display: block; }
-
-    /* Milestone */
-    .milestone {
-      margin-top: 18px;
-      border-radius: 6px;
-      padding: 14px 18px;
-      border: 1px solid color-mix(in srgb, var(--mc) 35%, transparent);
-      background: color-mix(in srgb, var(--mc) 7%, transparent);
-    }
-    .milestone-label { font-size: 9px; letter-spacing: 0.2em; margin-bottom: 6px; }
-    .milestone-text { font-size: 13px; color: #f8fafc; line-height: 1.6; }
-
-    /* Sidebar cards */
-    .card {
-      background: rgba(0,0,0,0.3);
-      border: 1px solid var(--border);
-      border-radius: 6px;
-      padding: 16px;
-      margin-bottom: 14px;
-    }
-
-    .cert-item { display: flex; align-items: flex-start; gap: 8px; margin-bottom: 8px; font-size: 12px; color: #94a3b8; line-height: 1.5; }
-    .cert-dot { flex-shrink: 0; margin-top: 1px; }
-
-    .chip {
-      display: inline-block;
-      background: rgba(255,255,255,0.04);
-      border: 1px solid var(--border);
-      border-radius: 2px;
-      padding: 4px 10px;
-      font-size: 11px;
-      margin: 3px 3px 3px 0;
-      color: #94a3b8;
-      transition: all 0.2s;
-      font-family: 'JetBrains Mono', monospace;
-    }
-    .chip:hover { border-color: var(--mc); color: var(--mc); }
-
-    /* Cert path */
-    .cert-path-item { display: flex; align-items: center; gap: 10px; margin-bottom: 10px; transition: opacity 0.3s; }
-    .cert-path-item.locked { opacity: 0.3; }
-    .cert-dot-circle { width: 8px; height: 8px; border-radius: 50%; flex-shrink: 0; transition: all 0.3s; }
-    .cert-path-name { font-size: 12px; font-weight: 600; color: #e2e8f0; }
-    .cert-path-sub { font-size: 10px; color: var(--dimmer); }
-    .cert-unlocked { font-size: 9px; letter-spacing: 0.1em; margin-left: auto; }
-
-    /* Stats grid */
-    .stats-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; }
-    .stat-label { font-size: 9px; color: var(--dimmer); letter-spacing: 0.15em; margin-bottom: 4px; }
-    .stat-value { font-size: 13px; font-weight: 600; }
-
-    /* Footer nav */
-    footer {
-      border-top: 1px solid #0d1a26;
-      padding: 14px 32px;
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      background: rgba(8,12,20,0.95);
-      backdrop-filter: blur(10px);
-      position: sticky; bottom: 0; z-index: 100;
-    }
-
-    .nav-btn {
-      background: transparent;
-      border: 1px solid var(--border);
-      color: #94a3b8;
-      padding: 8px 20px;
-      cursor: pointer;
-      font-size: 12px;
-      border-radius: 4px;
-      font-family: 'JetBrains Mono', monospace;
-      transition: all 0.2s;
-    }
-    .nav-btn:disabled { color: #2d3748; cursor: default; border-color: #0d1a26; }
-    .nav-btn.next { border-color: var(--mc); color: var(--mc); background: color-mix(in srgb, var(--mc) 10%, transparent); }
-    .nav-btn.next:disabled { border-color: #0d1a26; color: #2d3748; background: transparent; }
-
-    .dots { display: flex; gap: 8px; align-items: center; }
-    .dot {
-      height: 4px; border-radius: 2px; cursor: pointer;
-      transition: all 0.3s ease;
-      background: var(--border);
-    }
-    .dot.active { background: var(--mc); box-shadow: 0 0 8px var(--mc); }
-  </style>
+  /* PROGRESS BAR */
+  .progress-bar {
+    height: 2px;
+    background: var(--border);
+    margin: 0 24px 32px;
+    border-radius: 2px;
+    overflow: hidden;
+  }
+  .progress-fill {
+    height: 100%;
+    border-radius: 2px;
+    transition: width 0.6s ease;
+  }
+  .pf1 { background: linear-gradient(90deg, var(--m1), #00c880); }
+  .pf2 { background: linear-gradient(90deg, var(--m2), #6d48e5); }
+  .pf3 { background: linear-gradient(90deg, var(--m3), #e55a00); }
+</style>
 </head>
 <body>
-<div id="app">
-  <header>
-    <div class="header-inner">
-      <div class="eyebrow"><span class="pulse">▶</span> ETHICAL HACKER ROADMAP // 6-MONTH PROGRAM</div>
-      <h1>FROM ZERO<br><span>TO HIRED</span></h1>
-      <p class="subtitle">Beginner → Entry-Level Penetration Tester</p>
-      <div class="tabs" id="tabs"></div>
-    </div>
-  </header>
 
-  <main>
-    <div class="main-inner">
-      <div class="month-hero" id="hero"></div>
-      <div class="content-grid">
-        <div id="tasks-col"></div>
-        <div id="sidebar-col"></div>
+<!-- HERO -->
+<section class="hero">
+  <div class="hero-grid"></div>
+  <div class="hero-glow"></div>
+  <div class="badge">CS Graduate Edition</div>
+  <h1>Python Job-Ready<br/><span>3-Month Roadmap</span></h1>
+  <p>A structured plan built for CS grads with coding experience. From syntax to hired — in 90 days.</p>
+  <div class="stats">
+    <div class="stat">
+      <div class="stat-num">3</div>
+      <div class="stat-label">Months</div>
+    </div>
+    <div class="stat">
+      <div class="stat-num">8</div>
+      <div class="stat-label">Learning Blocks</div>
+    </div>
+    <div class="stat">
+      <div class="stat-num">3</div>
+      <div class="stat-label">Projects to Build</div>
+    </div>
+    <div class="stat">
+      <div class="stat-num">∞</div>
+      <div class="stat-label">Job Potential</div>
+    </div>
+  </div>
+</section>
+
+<!-- NAV -->
+<nav class="nav" id="main-nav">
+  <button class="nav-tab active-m1" onclick="showMonth(1)">
+    <div class="nav-month c1">Month 1</div>
+    <div class="nav-sub">Learn Python Fast</div>
+  </button>
+  <button class="nav-tab" onclick="showMonth(2)">
+    <div class="nav-month c2">Month 2</div>
+    <div class="nav-sub">Specialize & Build</div>
+  </button>
+  <button class="nav-tab" onclick="showMonth(3)">
+    <div class="nav-month c3">Month 3</div>
+    <div class="nav-sub">Polish & Get Hired</div>
+  </button>
+</nav>
+
+<!-- MONTH 1 -->
+<section class="section active" id="m1">
+  <div class="section-header">
+    <div class="section-num n1">1</div>
+    <div>
+      <div class="section-title">Learn Python Fast</div>
+      <div class="section-desc">2 learning blocks · Weeks 1–4 · Focus: fundamentals & intermediate Python</div>
+    </div>
+  </div>
+  <div class="progress-bar"><div class="progress-fill pf1" style="width:33%"></div></div>
+  <div class="weeks">
+
+    <!-- W1 -->
+    <div class="week c1" id="w1">
+      <div class="week-head" onclick="toggle('w1')">
+        <div class="week-head-left">
+          <span class="week-tag t1">Week 1–2</span>
+          <span class="week-title">Python Fundamentals</span>
+        </div>
+        <span class="week-arrow">▶</span>
+      </div>
+      <div class="week-body">
+        <div class="content-grid">
+          <div class="content-block">
+            <div class="block-label">What to Learn</div>
+            <div class="topic-item"><span class="topic-arrow" style="color:var(--m1)">→</span><span class="topic-text">Syntax, variables, data types — int, str, list, dict, tuple, set</span></div>
+            <div class="topic-item"><span class="topic-arrow" style="color:var(--m1)">→</span><span class="topic-text">Conditionals, loops (for/while), list comprehensions</span></div>
+            <div class="topic-item"><span class="topic-arrow" style="color:var(--m1)">→</span><span class="topic-text">Functions, *args/**kwargs, scope</span></div>
+            <div class="topic-item"><span class="topic-arrow" style="color:var(--m1)">→</span><span class="topic-text">OOP: classes, inheritance, dunder methods</span></div>
+            <div class="topic-item"><span class="topic-arrow" style="color:var(--m1)">→</span><span class="topic-text">Modules & packages, standard library</span></div>
+          </div>
+          <div class="content-block">
+            <div class="block-label">Code to Build</div>
+            <div class="practice-item p1">Build a CLI calculator</div>
+            <div class="practice-item p1">Build a number guessing game</div>
+            <div class="practice-item p1">Recreate CS data structures (stack, queue) in Python</div>
+          </div>
+        </div>
+        <div class="resources">
+          <div class="block-label">Resources & Links</div>
+          <a class="resource-item" href="https://www.youtube.com/@TechWithTim" target="_blank">
+            <span class="res-type">▶ YouTube</span>
+            <span class="res-label">Tech With Tim — Python Beginner Series (best for CS grads)</span>
+          </a>
+          <a class="resource-item" href="https://automatetheboringstuff.com" target="_blank">
+            <span class="res-type">📖 Book</span>
+            <span class="res-label">Automate the Boring Stuff with Python (free) — Chapters 1–8</span>
+          </a>
+          <a class="resource-item" href="https://www.hackerrank.com/domains/python" target="_blank">
+            <span class="res-type">💻 Practice</span>
+            <span class="res-label">HackerRank Python Track — Easy problems</span>
+          </a>
+        </div>
       </div>
     </div>
-  </main>
 
-  <footer>
-    <button class="nav-btn" id="btn-prev" onclick="navigate(-1)">← Prev Month</button>
-    <div class="dots" id="dots"></div>
-    <button class="nav-btn next" id="btn-next" onclick="navigate(1)">Next Month →</button>
-  </footer>
-</div>
+    <!-- W2 -->
+    <div class="week c1" id="w2">
+      <div class="week-head" onclick="toggle('w2')">
+        <div class="week-head-left">
+          <span class="week-tag t1">Week 3–4</span>
+          <span class="week-title">Intermediate Python</span>
+        </div>
+        <span class="week-arrow">▶</span>
+      </div>
+      <div class="week-body">
+        <div class="content-grid">
+          <div class="content-block">
+            <div class="block-label">What to Learn</div>
+            <div class="topic-item"><span class="topic-arrow" style="color:var(--m1)">→</span><span class="topic-text">File I/O — reading/writing text, CSV, JSON</span></div>
+            <div class="topic-item"><span class="topic-arrow" style="color:var(--m1)">→</span><span class="topic-text">Error handling — try/except/finally, custom exceptions</span></div>
+            <div class="topic-item"><span class="topic-arrow" style="color:var(--m1)">→</span><span class="topic-text">Virtual environments (venv), pip, requirements.txt</span></div>
+            <div class="topic-item"><span class="topic-arrow" style="color:var(--m1)">→</span><span class="topic-text">Working with APIs using the requests library</span></div>
+            <div class="topic-item"><span class="topic-arrow" style="color:var(--m1)">→</span><span class="topic-text">Decorators & generators (intro)</span></div>
+          </div>
+          <div class="content-block">
+            <div class="block-label">Code to Build</div>
+            <div class="practice-item p1">Weather CLI app using OpenWeatherMap API</div>
+            <div class="practice-item p1">Script that reads a CSV and outputs summary stats</div>
+            <div class="practice-item p1">Simple web scraper with BeautifulSoup</div>
+          </div>
+        </div>
+        <div class="resources">
+          <div class="block-label">Resources & Links</div>
+          <a class="resource-item" href="https://www.youtube.com/@coreyms" target="_blank">
+            <span class="res-type">▶ YouTube</span>
+            <span class="res-label">Corey Schafer — Python Intermediate Tutorials (legendary quality)</span>
+          </a>
+          <a class="resource-item" href="https://automatetheboringstuff.com" target="_blank">
+            <span class="res-type">📖 Book</span>
+            <span class="res-label">Automate the Boring Stuff — Chapters 9–18</span>
+          </a>
+          <a class="resource-item" href="https://leetcode.com" target="_blank">
+            <span class="res-type">💻 Practice</span>
+            <span class="res-label">LeetCode Easy in Python — aim for 10 problems</span>
+          </a>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- MONTH 2 -->
+<section class="section" id="m2">
+  <div class="section-header">
+    <div class="section-num n2">2</div>
+    <div>
+      <div class="section-title">Specialize & Build</div>
+      <div class="section-desc">3 learning blocks · Weeks 5–10 · Focus: pick your lane, build real projects</div>
+    </div>
+  </div>
+  <div class="progress-bar"><div class="progress-fill pf2" style="width:66%"></div></div>
+  <div class="weeks">
+
+    <!-- W3 -->
+    <div class="week c2" id="w3">
+      <div class="week-head" onclick="toggle('w3')">
+        <div class="week-head-left">
+          <span class="week-tag t2">Week 5–6</span>
+          <span class="week-title">Pick Your Lane + Core Libraries</span>
+        </div>
+        <span class="week-arrow">▶</span>
+      </div>
+      <div class="week-body">
+        <div class="content-grid">
+          <div class="content-block">
+            <div class="block-label">What to Learn</div>
+            <div class="topic-item"><span class="topic-arrow" style="color:var(--m2)">→</span><span class="topic-text">🌐 Web Dev: Django or FastAPI — routing, views, REST APIs</span></div>
+            <div class="topic-item"><span class="topic-arrow" style="color:var(--m2)">→</span><span class="topic-text">📊 Data/ML: NumPy, Pandas, Matplotlib, Jupyter</span></div>
+            <div class="topic-item"><span class="topic-arrow" style="color:var(--m2)">→</span><span class="topic-text">⚙️ Automation: subprocess, os/sys, schedule library</span></div>
+            <div class="topic-item"><span class="topic-arrow" style="color:var(--m2)">→</span><span class="topic-text">Databases: SQLite with Python, intro to SQLAlchemy</span></div>
+            <div class="topic-item"><span class="topic-arrow" style="color:var(--m2)">→</span><span class="topic-text">Git workflow: branching, PRs, clean commit messages</span></div>
+          </div>
+          <div class="content-block">
+            <div class="block-label">Code to Build</div>
+            <div class="practice-item p2">Web: REST API with 3+ endpoints (e.g. Todo API)</div>
+            <div class="practice-item p2">Data: Analyze a Kaggle dataset and visualize it</div>
+            <div class="practice-item p2">Automation: Script that automates a real daily task</div>
+          </div>
+        </div>
+        <div class="resources">
+          <div class="block-label">Resources & Links</div>
+          <a class="resource-item" href="https://www.youtube.com/@TechWithTim" target="_blank">
+            <span class="res-type">▶ YouTube</span>
+            <span class="res-label">Tech With Tim — Django / FastAPI full tutorials</span>
+          </a>
+          <a class="resource-item" href="https://www.youtube.com/@KeithGalli" target="_blank">
+            <span class="res-type">▶ YouTube</span>
+            <span class="res-label">Keith Galli — Pandas & Data Analysis (clear & practical)</span>
+          </a>
+          <a class="resource-item" href="https://www.kaggle.com/datasets" target="_blank">
+            <span class="res-type">🔧 Tool</span>
+            <span class="res-label">Kaggle — Free real-world datasets + Python notebooks</span>
+          </a>
+        </div>
+      </div>
+    </div>
+
+    <!-- W4 -->
+    <div class="week c2" id="w4">
+      <div class="week-head" onclick="toggle('w4')">
+        <div class="week-head-left">
+          <span class="week-tag t2">Week 7–8</span>
+          <span class="week-title">Build Project #1</span>
+        </div>
+        <span class="week-arrow">▶</span>
+      </div>
+      <div class="week-body">
+        <div class="content-grid">
+          <div class="content-block">
+            <div class="block-label">What to Build</div>
+            <div class="topic-item"><span class="topic-arrow" style="color:var(--m2)">→</span><span class="topic-text">Full project from scratch in your chosen lane</span></div>
+            <div class="topic-item"><span class="topic-arrow" style="color:var(--m2)">→</span><span class="topic-text">Use a real database (SQLite or PostgreSQL)</span></div>
+            <div class="topic-item"><span class="topic-arrow" style="color:var(--m2)">→</span><span class="topic-text">Add authentication if web project (JWT or sessions)</span></div>
+            <div class="topic-item"><span class="topic-arrow" style="color:var(--m2)">→</span><span class="topic-text">Write a README with setup instructions + screenshots</span></div>
+            <div class="topic-item"><span class="topic-arrow" style="color:var(--m2)">→</span><span class="topic-text">Deploy it — Railway, Render, or Vercel (free tiers)</span></div>
+          </div>
+          <div class="content-block">
+            <div class="block-label">Project Ideas</div>
+            <div class="practice-item p2">Web: Full CRUD app with auth (expense tracker, blog API)</div>
+            <div class="practice-item p2">Data: End-to-end analysis with visualizations + write-up</div>
+            <div class="practice-item p2">Automation: A bot or tool that solves a real problem</div>
+          </div>
+        </div>
+        <div class="resources">
+          <div class="block-label">Resources & Links</div>
+          <a class="resource-item" href="https://www.youtube.com/@TraversyMedia" target="_blank">
+            <span class="res-type">▶ YouTube</span>
+            <span class="res-label">Traversy Media — Deploy Python apps to the web</span>
+          </a>
+          <a class="resource-item" href="https://railway.app" target="_blank">
+            <span class="res-type">🔧 Tool</span>
+            <span class="res-label">Railway.app — Free Python hosting (easiest deployment)</span>
+          </a>
+          <a class="resource-item" href="https://leetcode.com" target="_blank">
+            <span class="res-type">💻 Practice</span>
+            <span class="res-label">LeetCode Medium — aim for 15 total solved</span>
+          </a>
+        </div>
+      </div>
+    </div>
+
+    <!-- W5 -->
+    <div class="week c2" id="w5">
+      <div class="week-head" onclick="toggle('w5')">
+        <div class="week-head-left">
+          <span class="week-tag t2">Week 9–10</span>
+          <span class="week-title">Build Project #2 + Testing</span>
+        </div>
+        <span class="week-arrow">▶</span>
+      </div>
+      <div class="week-body">
+        <div class="content-grid">
+          <div class="content-block">
+            <div class="block-label">What to Learn</div>
+            <div class="topic-item"><span class="topic-arrow" style="color:var(--m2)">→</span><span class="topic-text">Unit testing with pytest — writing test cases</span></div>
+            <div class="topic-item"><span class="topic-arrow" style="color:var(--m2)">→</span><span class="topic-text">Code quality: linting with flake8, formatting with black</span></div>
+            <div class="topic-item"><span class="topic-arrow" style="color:var(--m2)">→</span><span class="topic-text">Type hints and mypy for type checking</span></div>
+            <div class="topic-item"><span class="topic-arrow" style="color:var(--m2)">→</span><span class="topic-text">Logging — Python's logging module</span></div>
+            <div class="topic-item"><span class="topic-arrow" style="color:var(--m2)">→</span><span class="topic-text">Environment variables with python-dotenv</span></div>
+          </div>
+          <div class="content-block">
+            <div class="block-label">Code to Build</div>
+            <div class="practice-item p2">Add pytest tests to Project #1 (aim 80%+ coverage)</div>
+            <div class="practice-item p2">Build Project #2 — different type from Project #1</div>
+            <div class="practice-item p2">Refactor old code with type hints and logging</div>
+          </div>
+        </div>
+        <div class="resources">
+          <div class="block-label">Resources & Links</div>
+          <a class="resource-item" href="https://www.youtube.com/@ArjanCodes" target="_blank">
+            <span class="res-type">▶ YouTube</span>
+            <span class="res-label">ArjanCodes — Clean Python, Testing & Best Practices</span>
+          </a>
+          <a class="resource-item" href="https://docs.pytest.org" target="_blank">
+            <span class="res-type">📄 Docs</span>
+            <span class="res-label">pytest official docs — excellent, concise, beginner-friendly</span>
+          </a>
+          <a class="resource-item" href="https://leetcode.com" target="_blank">
+            <span class="res-type">💻 Practice</span>
+            <span class="res-label">LeetCode — keep at 2–3 problems per week</span>
+          </a>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- MONTH 3 -->
+<section class="section" id="m3">
+  <div class="section-header">
+    <div class="section-num n3">3</div>
+    <div>
+      <div class="section-title">Polish & Get Hired</div>
+      <div class="section-desc">3 learning blocks · Weeks 11–16 · Focus: projects, resume, interview prep</div>
+    </div>
+  </div>
+  <div class="progress-bar"><div class="progress-fill pf3" style="width:100%"></div></div>
+  <div class="weeks">
+
+    <!-- W6 -->
+    <div class="week c3" id="w6">
+      <div class="week-head" onclick="toggle('w6')">
+        <div class="week-head-left">
+          <span class="week-tag t3">Week 11–12</span>
+          <span class="week-title">Build Project #3 + GitHub Polish</span>
+        </div>
+        <span class="week-arrow">▶</span>
+      </div>
+      <div class="week-body">
+        <div class="content-grid">
+          <div class="content-block">
+            <div class="block-label">What to Do</div>
+            <div class="topic-item"><span class="topic-arrow" style="color:var(--m3)">→</span><span class="topic-text">Build your most impressive project — make it stand out</span></div>
+            <div class="topic-item"><span class="topic-arrow" style="color:var(--m3)">→</span><span class="topic-text">All 3 projects on GitHub with clean READMEs + screenshots</span></div>
+            <div class="topic-item"><span class="topic-arrow" style="color:var(--m3)">→</span><span class="topic-text">Pin your best 3 repos on your GitHub profile</span></div>
+            <div class="topic-item"><span class="topic-arrow" style="color:var(--m3)">→</span><span class="topic-text">Add CI/CD with GitHub Actions (run tests on every push)</span></div>
+            <div class="topic-item"><span class="topic-arrow" style="color:var(--m3)">→</span><span class="topic-text">Record a 2-min demo video for your best project</span></div>
+          </div>
+          <div class="content-block">
+            <div class="block-label">Project Ideas</div>
+            <div class="practice-item p3">SaaS-style app with real user flows</div>
+            <div class="practice-item p3">Data dashboard with live data & visualizations</div>
+            <div class="practice-item p3">Automation tool that solves a real, specific problem</div>
+          </div>
+        </div>
+        <div class="resources">
+          <div class="block-label">Resources & Links</div>
+          <a class="resource-item" href="https://www.youtube.com/@fknight" target="_blank">
+            <span class="res-type">▶ YouTube</span>
+            <span class="res-label">ForrestKnight — How to build a developer portfolio</span>
+          </a>
+          <a class="resource-item" href="https://docs.github.com/actions" target="_blank">
+            <span class="res-type">📄 Docs</span>
+            <span class="res-label">GitHub Actions — Free CI/CD for your projects</span>
+          </a>
+          <a class="resource-item" href="https://neetcode.io" target="_blank">
+            <span class="res-type">💻 Practice</span>
+            <span class="res-label">NeetCode.io — Blind 75 problems in Python (interview focused)</span>
+          </a>
+        </div>
+      </div>
+    </div>
+
+    <!-- W7 -->
+    <div class="week c3" id="w7">
+      <div class="week-head" onclick="toggle('w7')">
+        <div class="week-head-left">
+          <span class="week-tag t3">Week 13</span>
+          <span class="week-title">Resume + LinkedIn</span>
+        </div>
+        <span class="week-arrow">▶</span>
+      </div>
+      <div class="week-body">
+        <div class="content-grid">
+          <div class="content-block">
+            <div class="block-label">What to Do</div>
+            <div class="topic-item"><span class="topic-arrow" style="color:var(--m3)">→</span><span class="topic-text">Tailor resume to Python/software roles — 1 page, clean</span></div>
+            <div class="topic-item"><span class="topic-arrow" style="color:var(--m3)">→</span><span class="topic-text">List projects with impact: what it does, tech, GitHub link</span></div>
+            <div class="topic-item"><span class="topic-arrow" style="color:var(--m3)">→</span><span class="topic-text">Highlight CS degree + IT concentration prominently</span></div>
+            <div class="topic-item"><span class="topic-arrow" style="color:var(--m3)">→</span><span class="topic-text">LinkedIn: professional photo, headline, About section</span></div>
+            <div class="topic-item"><span class="topic-arrow" style="color:var(--m3)">→</span><span class="topic-text">Connect with Python devs, recruiters, hiring managers</span></div>
+          </div>
+          <div class="content-block">
+            <div class="block-label">Action Items</div>
+            <div class="practice-item p3">Use JobScan to optimize resume for ATS systems</div>
+            <div class="practice-item p3">Post resume on r/cscareerquestions for feedback</div>
+            <div class="practice-item p3">Apply to 10 jobs this week — don't wait to feel ready</div>
+          </div>
+        </div>
+        <div class="resources">
+          <div class="block-label">Resources & Links</div>
+          <a class="resource-item" href="https://www.jobscan.co" target="_blank">
+            <span class="res-type">🔧 Tool</span>
+            <span class="res-label">JobScan — ATS resume optimizer (match to job descriptions)</span>
+          </a>
+          <a class="resource-item" href="https://www.youtube.com/@CSDojo" target="_blank">
+            <span class="res-type">▶ YouTube</span>
+            <span class="res-label">CS Dojo — Software Engineer Resume Tips</span>
+          </a>
+          <a class="resource-item" href="https://reddit.com/r/cscareerquestions" target="_blank">
+            <span class="res-type">👥 Community</span>
+            <span class="res-label">r/cscareerquestions — resume roasts & career advice</span>
+          </a>
+        </div>
+      </div>
+    </div>
+
+    <!-- W8 -->
+    <div class="week c3" id="w8">
+      <div class="week-head" onclick="toggle('w8')">
+        <div class="week-head-left">
+          <span class="week-tag t3">Week 14–16</span>
+          <span class="week-title">Interview Prep + Apply Hard</span>
+        </div>
+        <span class="week-arrow">▶</span>
+      </div>
+      <div class="week-body">
+        <div class="content-grid">
+          <div class="content-block">
+            <div class="block-label">What to Study</div>
+            <div class="topic-item"><span class="topic-arrow" style="color:var(--m3)">→</span><span class="topic-text">Python interview questions: GIL, generators, decorators, list vs tuple</span></div>
+            <div class="topic-item"><span class="topic-arrow" style="color:var(--m3)">→</span><span class="topic-text">System design basics — you don't need to be an expert</span></div>
+            <div class="topic-item"><span class="topic-arrow" style="color:var(--m3)">→</span><span class="topic-text">Behavioral questions: STAR method for your project stories</span></div>
+            <div class="topic-item"><span class="topic-arrow" style="color:var(--m3)">→</span><span class="topic-text">Coding interviews: explain your thought process out loud</span></div>
+            <div class="topic-item"><span class="topic-arrow" style="color:var(--m3)">→</span><span class="topic-text">Apply 10–15 jobs per week consistently</span></div>
+          </div>
+          <div class="content-block">
+            <div class="block-label">Action Items</div>
+            <div class="practice-item p3">3–5 mock interviews on Pramp or interviewing.io</div>
+            <div class="practice-item p3">1 LeetCode problem daily (easy/medium mix)</div>
+            <div class="practice-item p3">Write out answers to 10 common behavioral questions</div>
+          </div>
+        </div>
+        <div class="resources">
+          <div class="block-label">Resources & Links</div>
+          <a class="resource-item" href="https://www.youtube.com/@NeetCode" target="_blank">
+            <span class="res-type">▶ YouTube</span>
+            <span class="res-label">NeetCode — #1 Python coding interview prep channel</span>
+          </a>
+          <a class="resource-item" href="https://www.pramp.com" target="_blank">
+            <span class="res-type">🔧 Tool</span>
+            <span class="res-label">Pramp — Free peer mock interviews (highly recommended)</span>
+          </a>
+          <a class="resource-item" href="https://interviewing.io" target="_blank">
+            <span class="res-type">🔧 Tool</span>
+            <span class="res-label">interviewing.io — Anonymous mock interviews with engineers</span>
+          </a>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <div class="tip-box">
+    <span>💡</span>
+    <span><strong>Pro tip:</strong> Code every single day. Even 45 minutes beats a 4-hour session once a week. Consistency is everything.</span>
+  </div>
+  <div style="margin-top:16px;font-size:11px;color:var(--muted)">Built for CS grads · Python Job-Ready Roadmap · 3 Months</div>
+</footer>
 
 <script>
-const MONTHS = [
-  {
-    number: 1, title: "Foundations", subtitle: "Build Your Base",
-    color: "#00ff9f", icon: "⬡", focus: "Networking & OS Fundamentals",
-    tasks: [
-      { label: "Learn the OSI & TCP/IP models", detail: "Understand how data travels across networks — this is foundational for everything." },
-      { label: "Study IP addressing, subnetting, DNS, HTTP/S", detail: "Know how devices find each other and how the web communicates." },
-      { label: "Get comfortable with Linux (Kali or Ubuntu)", detail: "Ethical hackers live in the terminal. Learn basic commands, file permissions, and navigation." },
-      { label: "Understand Windows basics & Active Directory concepts", detail: "Most corporate environments run Windows — you need to know how to navigate them." },
-      { label: "Set up a home lab (VirtualBox + Kali Linux)", detail: "Practice legally in your own environment. Start with 2 VMs minimum." },
-    ],
-    certs: ["CompTIA IT Fundamentals (ITF+) — optional starter"],
-    resources: ["Professor Messer (free YouTube)", "TryHackMe — Pre-Security path", "NetworkChuck YouTube"],
-    milestone: "You can explain how a packet travels from your browser to Google and back.",
-    hours: "10–15", difficulty: "★☆☆☆☆", cost: "$0",
-  },
-  {
-    number: 2, title: "Security Concepts", subtitle: "Think Like a Defender",
-    color: "#00cfff", icon: "◈", focus: "Core Security Principles",
-    tasks: [
-      { label: "Study CIA Triad, AAA, and threat models", detail: "The core pillars of all security thinking — Confidentiality, Integrity, Availability." },
-      { label: "Learn common attack types: phishing, MITM, DoS, SQLi, XSS", detail: "You can't defend (or attack ethically) what you don't understand." },
-      { label: "Understand firewalls, IDS/IPS, VPNs, and proxies", detail: "Learn what each tool does and where it sits in a network." },
-      { label: "Study cryptography basics: hashing, symmetric/asymmetric encryption", detail: "Passwords, HTTPS, certificates — all rely on this." },
-      { label: "Start CompTIA Security+ study materials", detail: "This is the #1 entry-level cert employers look for. Begin now." },
-    ],
-    certs: ["Begin CompTIA Security+ prep"],
-    resources: ["Professor Messer Security+ (free)", "TryHackMe — SOC Level 1", "Cybrary (free tier)"],
-    milestone: "You can identify and explain 10+ common attack vectors to a non-technical person.",
-    hours: "10–15", difficulty: "★★☆☆☆", cost: "$0",
-  },
-  {
-    number: 3, title: "Ethical Hacking Intro", subtitle: "First Steps in Offense",
-    color: "#ffcc00", icon: "◉", focus: "Reconnaissance & Scanning",
-    tasks: [
-      { label: "Learn the 5 phases of ethical hacking", detail: "Recon → Scanning → Gaining Access → Maintaining Access → Covering Tracks." },
-      { label: "Master Nmap for port scanning and enumeration", detail: "Nmap is the #1 recon tool. Know all major flags and scan types cold." },
-      { label: "Practice with Metasploit Framework basics", detail: "Learn to use existing exploits responsibly in your lab environment." },
-      { label: "Learn OSINT techniques (Shodan, theHarvester, Maltego)", detail: "Gather intelligence on targets using only publicly available data." },
-      { label: "Complete TryHackMe's Jr Penetration Tester path", detail: "Guided hands-on rooms that walk you through real techniques safely." },
-    ],
-    certs: ["eJPT (eLearnSecurity Junior Penetration Tester) — beginner-friendly, ~$200"],
-    resources: ["TryHackMe Jr Penetration Tester", "HackTheBox Starting Point", "IppSec YouTube (HTB walkthroughs)"],
-    milestone: "You complete your first TryHackMe CTF room from scratch without hints.",
-    hours: "15–20", difficulty: "★★★☆☆", cost: "~$200",
-  },
-  {
-    number: 4, title: "Core Attack Skills", subtitle: "Web & Network Exploitation",
-    color: "#ff9500", icon: "◆", focus: "Active Exploitation Techniques",
-    tasks: [
-      { label: "Learn web app vulnerabilities (OWASP Top 10)", detail: "SQLi, XSS, CSRF, IDOR, broken auth — every pentester must know these inside-out." },
-      { label: "Practice with Burp Suite Community Edition", detail: "The industry-standard tool for intercepting and manipulating web traffic." },
-      { label: "Study privilege escalation (Linux & Windows)", detail: "Getting in is step 1. Escalating from user to root/admin is the real skill." },
-      { label: "Learn password attacks: Hashcat, John the Ripper, wordlists", detail: "Understand how passwords are cracked and why strong hashing matters." },
-      { label: "Solve 10+ HackTheBox easy machines", detail: "HTB is the closest thing to real-world pentesting you'll find for free." },
-    ],
-    certs: ["CompTIA Security+ — sit the exam this month (~$392)"],
-    resources: ["PortSwigger Web Security Academy (FREE)", "GTFOBins & HackTricks for privesc", "HackTheBox Academy"],
-    milestone: "You earn CompTIA Security+ certification. 🎉",
-    hours: "15–20", difficulty: "★★★★☆", cost: "~$400",
-  },
-  {
-    number: 5, title: "Specialization", subtitle: "Pick Your Lane",
-    color: "#ff5e5e", icon: "◇", focus: "Advanced Techniques & Tooling",
-    tasks: [
-      { label: "Choose a focus: Web App, Network Pentesting, or Red Team", detail: "Specializing makes you more hireable. Most entry jobs are web or network focused." },
-      { label: "Learn scripting: Python or Bash for automation", detail: "Write your own tools, automate recon, customize exploits. 100 lines of Python will take you far." },
-      { label: "Study Active Directory attacks (Kerberoasting, Pass-the-Hash, BloodHound)", detail: "AD attacks are in nearly every real corporate pentest. This sets you apart." },
-      { label: "Practice writing pentest reports", detail: "Technical findings mean nothing if you can't communicate them. Reports are half the job." },
-      { label: "Participate in a CTF competition (PicoCTF, CTFtime events)", detail: "Competitions sharpen skills fast and look excellent on a resume." },
-    ],
-    certs: ["eJPT if not already done (~$200)", "Begin CEH or PNPT study"],
-    resources: ["PNPT by TCM Security", "AD lab setup — TCM Security (free YouTube)", "CTFtime.org"],
-    milestone: "You write a full mock pentest report for a vulnerable VM (e.g., VulnHub machine).",
-    hours: "20–25", difficulty: "★★★★☆", cost: "~$200",
-  },
-  {
-    number: 6, title: "Job Ready", subtitle: "Launch Your Career",
-    color: "#c084fc", icon: "★", focus: "Portfolio, Applications & Interviews",
-    tasks: [
-      { label: "Build a GitHub portfolio with writeups and scripts", detail: "Document your HTB/TryHackMe solutions, custom tools, and lab setups. Employers will check this." },
-      { label: "Create a professional LinkedIn with security focus", detail: "List your certs, labs, and projects. Connect with security professionals actively." },
-      { label: "Apply for Bug Bounty programs (HackerOne, Bugcrowd)", detail: "Even $0 bug reports prove real-world testing. A paid bounty is gold on a resume." },
-      { label: "Apply for entry-level roles: Jr Pentester, SOC Analyst L1, Security Analyst", detail: "Don't wait for 'perfect.' Apply broadly — SOC roles are a great launchpad to pentesting." },
-      { label: "Practice interview questions: explain attacks, tools, methodology", detail: "Be ready to explain your thought process out loud. Technical interviews often involve live walkthroughs." },
-    ],
-    certs: ["CompTIA Security+ ✓", "eJPT ✓", "CEH or PNPT — schedule exam (~$200–$400)"],
-    resources: ["TCM Security 'Getting into Infosec' (YouTube)", "Reddit r/netsec resume templates", "HackerOne & Bugcrowd"],
-    milestone: "You land your first interview — or your first bug bounty payout. Either counts. 🚀",
-    hours: "20–25", difficulty: "★★★★★", cost: "~$200",
-  },
-];
+  function showMonth(n) {
+    document.querySelectorAll('.section').forEach(s => s.classList.remove('active'));
+    document.getElementById('m' + n).classList.add('active');
+    document.querySelectorAll('.nav-tab').forEach(t => {
+      t.className = 'nav-tab';
+    });
+    const tabs = document.querySelectorAll('.nav-tab');
+    tabs[n-1].classList.add('active-m' + n);
+    window.scrollTo({ top: document.getElementById('main-nav').offsetTop - 10, behavior: 'smooth' });
+  }
 
-const CERT_PATH = [
-  { name: "CompTIA Security+", month: 4, color: "#00cfff", tier: "Essential" },
-  { name: "eJPT", month: 5, color: "#ffcc00", tier: "Hands-On" },
-  { name: "CEH or PNPT", month: 6, color: "#c084fc", tier: "Advanced" },
-];
-
-let active = 0;
-let openTask = null;
-
-function setMonth(i) {
-  active = i;
-  openTask = null;
-  render();
-}
-
-function navigate(dir) {
-  const next = active + dir;
-  if (next >= 0 && next < MONTHS.length) setMonth(next);
-}
-
-function toggleTask(i) {
-  openTask = openTask === i ? null : i;
-  renderTasks();
-}
-
-function render() {
-  renderTabs();
-  renderHero();
-  renderTasks();
-  renderSidebar();
-  renderDots();
-  renderNavBtns();
-}
-
-function renderTabs() {
-  const m = MONTHS[active];
-  document.getElementById('tabs').innerHTML = MONTHS.map((mo, i) => `
-    <button class="tab ${i === active ? 'active' : ''}"
-      style="--mc:${mo.color}; ${i === active ? `border-color:${mo.color}` : ''}"
-      onclick="setMonth(${i})">
-      <div class="tab-label" style="color:${i === active ? mo.color : '#4a5568'}">MONTH ${mo.number}</div>
-      <div class="tab-title" style="color:${i === active ? '#f8fafc' : '#64748b'}">${mo.title}</div>
-    </button>
-  `).join('');
-}
-
-function renderHero() {
-  const m = MONTHS[active];
-  const pct = (m.number / 6 * 100).toFixed(0);
-  document.getElementById('hero').style.borderTopColor = m.color;
-  document.getElementById('hero').style.borderColor = m.color + '22';
-  document.getElementById('hero').style.setProperty('--mc', m.color);
-  document.getElementById('hero').innerHTML = `
-    <div style="display:flex;align-items:center">
-      <span class="hero-icon" style="color:${m.color}">${m.icon}</span>
-      <div>
-        <div class="hero-eyebrow" style="color:${m.color}">Month ${m.number} — ${m.focus}</div>
-        <div class="hero-title">${m.title}: <span style="color:${m.color}">${m.subtitle}</span></div>
-      </div>
-    </div>
-    <div class="progress-wrap">
-      <div class="progress-bar">
-        <div class="progress-fill" style="width:${pct}%;background:${m.color};box-shadow:0 0 8px ${m.color}"></div>
-      </div>
-      <div class="progress-label">${m.number}/6 months complete</div>
-    </div>
-  `;
-}
-
-function renderTasks() {
-  const m = MONTHS[active];
-  document.getElementById('tasks-col').innerHTML = `
-    <div class="section-hdr">Weekly Tasks & Skills</div>
-    ${m.tasks.map((t, i) => `
-      <div class="task ${openTask === i ? 'open' : ''}" style="--mc:${m.color}" onclick="toggleTask(${i})">
-        <div class="task-row">
-          <div class="task-num" style="${openTask === i ? `border-color:${m.color};color:${m.color}` : ''}">${i+1}</div>
-          <span class="task-label">${t.label}</span>
-          <span class="task-arrow">▶</span>
-        </div>
-        <div class="task-detail">${t.detail}</div>
-      </div>
-    `).join('')}
-    <div class="milestone" style="--mc:${m.color};border-color:${m.color}55;background:${m.color}0f">
-      <div class="milestone-label" style="color:${m.color}">▲ MONTH ${m.number} MILESTONE</div>
-      <div class="milestone-text">${m.milestone}</div>
-    </div>
-  `;
-}
-
-function renderSidebar() {
-  const m = MONTHS[active];
-  document.getElementById('sidebar-col').innerHTML = `
-    <div class="card">
-      <div class="section-hdr">Certifications</div>
-      ${m.certs.map(c => `
-        <div class="cert-item">
-          <span class="cert-dot" style="color:${m.color}">◈</span>
-          ${c}
-        </div>
-      `).join('')}
-    </div>
-
-    <div class="card">
-      <div class="section-hdr">Resources</div>
-      <div>${m.resources.map(r => `<span class="chip" style="--mc:${m.color}">${r}</span>`).join('')}</div>
-    </div>
-
-    <div class="card">
-      <div class="section-hdr">Cert Roadmap</div>
-      ${CERT_PATH.map(c => `
-        <div class="cert-path-item ${active + 1 >= c.month ? '' : 'locked'}">
-          <div class="cert-dot-circle" style="background:${active+1 >= c.month ? c.color : '#1a2535'};${active+1 >= c.month ? `box-shadow:0 0 8px ${c.color}` : ''}"></div>
-          <div>
-            <div class="cert-path-name">${c.name}</div>
-            <div class="cert-path-sub">Month ${c.month} · ${c.tier}</div>
-          </div>
-          ${active+1 >= c.month ? `<span class="cert-unlocked" style="color:${c.color}">UNLOCKED</span>` : ''}
-        </div>
-      `).join('')}
-    </div>
-
-    <div class="card">
-      <div class="stats-grid">
-        <div><div class="stat-label">HOURS/WEEK</div><div class="stat-value" style="color:${m.color}">${m.hours}</div></div>
-        <div><div class="stat-label">DIFFICULTY</div><div class="stat-value" style="color:${m.color}">${m.difficulty}</div></div>
-        <div><div class="stat-label">EST. COST</div><div class="stat-value" style="color:${m.color}">${m.cost}</div></div>
-        <div><div class="stat-label">TASKS</div><div class="stat-value" style="color:${m.color}">${m.tasks.length} items</div></div>
-      </div>
-    </div>
-  `;
-}
-
-function renderDots() {
-  document.getElementById('dots').innerHTML = MONTHS.map((m, i) => `
-    <div class="dot ${i === active ? 'active' : ''}" onclick="setMonth(${i})"
-      style="width:${i === active ? 24 : 8}px;${i === active ? `background:${m.color};box-shadow:0 0 8px ${m.color}` : ''}"></div>
-  `).join('');
-}
-
-function renderNavBtns() {
-  const m = MONTHS[active];
-  const prev = document.getElementById('btn-prev');
-  const next = document.getElementById('btn-next');
-  prev.disabled = active === 0;
-  next.disabled = active === MONTHS.length - 1;
-  next.style.setProperty('--mc', m.color);
-  next.style.borderColor = active === MONTHS.length - 1 ? '' : m.color;
-  next.style.color = active === MONTHS.length - 1 ? '' : m.color;
-  next.style.background = active === MONTHS.length - 1 ? '' : m.color + '1a';
-}
-
-// Init
-render();
+  function toggle(id) {
+    const el = document.getElementById(id);
+    el.classList.toggle('open');
+  }
 </script>
 </body>
 </html>
